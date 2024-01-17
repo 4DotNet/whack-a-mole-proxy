@@ -14,12 +14,6 @@ namespace Wam.Proxy
             ILogger<CustomProxyConfigProvider> logger)
         {
             var configuration = options.Value;
-
-            configuration.GamesService =
-                "https://wam-games-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
-            configuration.UsersService =
-                "https://wam-users-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
-
             logger.LogInformation("Creating proxy config provider with configuration: {@configuration}", configuration);
 
             var shortLinksRouteConfig = new RouteConfig
@@ -54,7 +48,7 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = configuration.UsersService } }
+                        { "default", new DestinationConfig { Address = $"http://{configuration.UsersService}:8080" } }
                     }
                 },
                 new ClusterConfig
@@ -63,7 +57,7 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = configuration.GamesService } }
+                        { "default", new DestinationConfig { Address = $"http://{configuration.GamesService}:8080" } }
                     }
                 }
 
