@@ -15,10 +15,10 @@ namespace Wam.Proxy
         {
             var configuration = options.Value;
 
-            //configuration.GamesService =
-            //    "https://wam-games-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
-            //configuration.UsersService =
-            //    "https://wam-users-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
+            configuration.GamesService =
+                "https://wam-games-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
+            configuration.UsersService =
+                "https://wam-users-api-tst-ne-aca.wonderfulbay-a80b7c29.northeurope.azurecontainerapps.io";
 
             logger.LogInformation("Creating proxy config provider with configuration: {@configuration}", configuration);
 
