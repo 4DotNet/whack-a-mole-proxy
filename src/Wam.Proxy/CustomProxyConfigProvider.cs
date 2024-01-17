@@ -60,8 +60,7 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = $"http://{configuration.GamesService}:8080",
-                            Health = $"http://{configuration.GamesService}:8080/health", } }
+                        { "default", new DestinationConfig { Address = $"http://{configuration.GamesService}:8080" } }
                     }
                 }
 
