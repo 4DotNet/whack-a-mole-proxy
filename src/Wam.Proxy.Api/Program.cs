@@ -22,6 +22,7 @@ catch (Exception ex)
     throw new Exception("Failed to configure the Whack-A-Mole Realtime service, Azure App Configuration failed", ex);
 }
 
+builder.Services.AddHealthChecks();
 builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddServiceConfiguration(builder.Configuration);
 builder.Services
@@ -42,6 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseHealthChecks("/health");
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
