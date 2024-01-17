@@ -7,20 +7,20 @@ using Yarp.ReverseProxy.Configuration;
 var corsPolicyName = "DefaultCors";
 var builder = WebApplication.CreateBuilder(args);
 
-//var azureCredential = CloudIdentity.GetCloudIdentity();
-//try
-//{
-//    builder.Configuration.AddAzureAppConfiguration(options =>
-//    {
-//        var appConfigurationUrl = builder.Configuration.GetRequiredValue("AzureAppConfiguration");
-//        options.Connect(new Uri(appConfigurationUrl), azureCredential)
-//            .UseFeatureFlags();
-//    });
-//}
-//catch (Exception ex)
-//{
-//    throw new Exception("Failed to configure the Whack-A-Mole Realtime service, Azure App Configuration failed", ex);
-//}
+var azureCredential = CloudIdentity.GetCloudIdentity();
+try
+{
+    builder.Configuration.AddAzureAppConfiguration(options =>
+    {
+        var appConfigurationUrl = builder.Configuration.GetRequiredValue("AzureAppConfiguration");
+        options.Connect(new Uri(appConfigurationUrl), azureCredential)
+            .UseFeatureFlags();
+    });
+}
+catch (Exception ex)
+{
+    throw new Exception("Failed to configure the Whack-A-Mole Realtime service, Azure App Configuration failed", ex);
+}
 
 builder.Services.AddHealthChecks();
 //builder.Services.AddApplicationInsightsTelemetry();
