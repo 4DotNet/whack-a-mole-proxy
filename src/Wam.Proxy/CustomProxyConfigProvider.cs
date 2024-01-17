@@ -48,7 +48,10 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = $"http://{configuration.UsersService}:8080" } }
+                        { "default", new DestinationConfig
+                        {
+                            Address = $"http://{configuration.UsersService}:8080"
+                        } }
                     }
                 },
                 new ClusterConfig
@@ -57,7 +60,8 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = $"http://{configuration.GamesService}:8080" } }
+                        { "default", new DestinationConfig { Address = $"http://{configuration.GamesService}:8080",
+                            Health = $"http://{configuration.GamesService}:8080/health", } }
                     }
                 }
 
