@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Wam.Proxy.Configuration;
 using Yarp.ReverseProxy.Configuration;
 using Yarp.ReverseProxy.LoadBalancing;
@@ -9,9 +10,12 @@ namespace Wam.Proxy
     {
         //private readonly ServicesConfiguration _configuration;
 
-        public CustomProxyConfigProvider(IOptions<ServicesConfiguration> options)
+        public CustomProxyConfigProvider(IOptions<ServicesConfiguration> options,
+            ILogger<CustomProxyConfigProvider> logger)
         {
-          var   configuration = options.Value;
+            var configuration = options.Value;
+
+            logger.LogInformation("Creating proxy config provider with configuration: {@configuration}", configuration);
 
             var shortLinksRouteConfig = new RouteConfig
             {
@@ -54,7 +58,7 @@ namespace Wam.Proxy
                     LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
                     Destinations = new Dictionary<string, DestinationConfig>
                     {
-                        { "default", new DestinationConfig { Address = configuration.GamesService  } }
+                        { "default", new DestinationConfig { Address = configuration.GamesService } }
                     }
                 }
 
@@ -63,16 +67,9 @@ namespace Wam.Proxy
 
             _config = new CustomMemoryConfig(routeConfigs, clusterConfigs);
         }
+
         private CustomMemoryConfig _config;
 
         public IProxyConfig GetConfig() => _config;
-
-
-        //public CustomProxyConfigProvider()
-        //{
-        //    // Load a basic configuration
-        //    // Should be based on your application needs.
-
-        //}
     }
 }
