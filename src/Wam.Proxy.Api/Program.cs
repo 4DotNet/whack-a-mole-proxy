@@ -1,7 +1,7 @@
+using Wam.Core.Configuration;
 using Wam.Core.ExtensionMethods;
 using Wam.Core.Identity;
 using Wam.Proxy;
-using Wam.Proxy.ExtensionMethods;
 using Yarp.ReverseProxy.Configuration;
 
 var corsPolicyName = "DefaultCors";
@@ -24,7 +24,7 @@ catch (Exception ex)
 
 builder.Services.AddHealthChecks();
 builder.Services.AddApplicationInsightsTelemetry();
-builder.Services.AddServiceConfiguration(builder.Configuration);
+builder.Services.AddWamCoreConfiguration(builder.Configuration);
 
 builder.Services
     .AddSingleton<IProxyConfigProvider, CustomProxyConfigProvider>()
