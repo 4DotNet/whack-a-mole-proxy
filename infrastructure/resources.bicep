@@ -26,8 +26,8 @@ module serviceNameConfigurationValue 'configuration-value.bicep' = {
   scope: resourceGroup(integrationEnvironment.resourceGroup)
   params: {
     appConfigurationName: integrationEnvironment.appConfiguration
-    settingName: 'Services:UsersService'
-    settingValue: 'http://${apiContainerApp.name}'
+    settingName: 'Services:ProxyService'
+    settingValue: apiContainerApp.name
   }
 }
 
