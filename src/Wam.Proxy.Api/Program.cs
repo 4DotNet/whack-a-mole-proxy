@@ -25,6 +25,7 @@ catch (Exception ex)
 builder.Services.AddHealthChecks();
 builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddServiceConfiguration(builder.Configuration);
+
 builder.Services
     .AddSingleton<IProxyConfigProvider, CustomProxyConfigProvider>()
     .AddReverseProxy();

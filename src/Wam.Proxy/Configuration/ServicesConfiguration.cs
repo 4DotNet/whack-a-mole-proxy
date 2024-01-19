@@ -6,4 +6,5 @@ public class ServicesConfiguration
 
     public string GamesService { get; set; }
     public string UsersService { get; set; }
+    public string ScoresService { get; set; }
 }
