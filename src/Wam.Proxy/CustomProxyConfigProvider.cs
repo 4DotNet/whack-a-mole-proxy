@@ -44,6 +44,15 @@ public class CustomProxyConfigProvider : IProxyConfigProvider
                 {
                     Path = "/api/scores/{**catch-all}"
                 }
+            },
+            new RouteConfig
+            {
+                RouteId = "realtimeRoute",
+                ClusterId = "realtimeCluster",
+                Match = new RouteMatch
+                {
+                    Path = "/api/realtime/{**catch-all}"
+                }
             }
         };
 
@@ -90,6 +99,21 @@ public class CustomProxyConfigProvider : IProxyConfigProvider
                         {
                             Address = $"http://{configuration.ScoresService}",
                             Health = $"http://{configuration.ScoresService}/health",
+                        }
+                    }
+                }
+            }
+            ,
+            new ClusterConfig
+            {
+                ClusterId = "realtimeCluster",
+                LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    {
+                        "default", new DestinationConfig
+                        {
+                            Address = $"http://{configuration.RealtimeService}"
                         }
                     }
                 }
