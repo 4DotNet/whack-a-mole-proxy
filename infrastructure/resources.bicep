@@ -100,7 +100,7 @@ resource apiContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
             name: 'http-rule'
             http: {
               metadata: {
-                concurrentRequests: '8'
+                concurrentRequests: '6'
               }
             }
           }
