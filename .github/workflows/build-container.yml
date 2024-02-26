@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Reverse Proxy
 
 on:
   push:
