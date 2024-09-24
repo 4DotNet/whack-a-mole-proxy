@@ -47,6 +47,15 @@ public class CustomProxyConfigProvider : IProxyConfigProvider
             },
             new RouteConfig
             {
+                RouteId = "vouchersRoute",
+                ClusterId = "vouchersCluster",
+                Match = new RouteMatch
+                {
+                    Path = "/api/vouchers/{**catch-all}"
+                }
+            },
+            new RouteConfig
+            {
                 RouteId = "realtimeRoute",
                 ClusterId = "realtimeCluster",
                 Match = new RouteMatch
@@ -102,8 +111,22 @@ public class CustomProxyConfigProvider : IProxyConfigProvider
                         }
                     }
                 }
-            }
-            ,
+            },
+            new ClusterConfig
+            {
+                ClusterId = "vouchersCluster",
+                LoadBalancingPolicy = LoadBalancingPolicies.RoundRobin,
+                Destinations = new Dictionary<string, DestinationConfig>
+                {
+                    {
+                        "default", new DestinationConfig
+                        {
+                            Address = $"http://{configuration.VouchersService}",
+                            Health = $"http://{configuration.ScoresService}/health",
+                        }
+                    }
+                }
+            },
             new ClusterConfig
             {
                 ClusterId = "realtimeCluster",
