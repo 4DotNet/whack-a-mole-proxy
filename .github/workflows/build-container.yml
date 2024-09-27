@@ -101,7 +101,7 @@ jobs:
 
   prod-depoloyment:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [test-depoloyment]
+    needs: [test-depoloyment, versionize]
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
