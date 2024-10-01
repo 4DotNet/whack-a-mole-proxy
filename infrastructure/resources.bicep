@@ -57,7 +57,7 @@ resource apiContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
       dapr: {
         enabled: true
         appPort: containerPort
-        appId: containerAppName
+        appId: '${defaultResourceName}-aca'
       }
       secrets: [
         {
@@ -89,7 +89,6 @@ resource apiContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
               value: appConfiguration.properties.endpoint
             }
           ]
-
         }
       ]
       scale: {
