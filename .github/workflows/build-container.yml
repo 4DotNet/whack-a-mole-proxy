@@ -78,7 +78,7 @@ jobs:
           path: infrastructure/*.json
 
   test-depoloyment:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
     needs: [build, publish-bicep, versionize]
     runs-on: ubuntu-latest
     steps:
@@ -101,7 +101,7 @@ jobs:
 
   prod-depoloyment:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [test-depoloyment, versionize]
+    needs: [build, publish-bicep, versionize]
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
