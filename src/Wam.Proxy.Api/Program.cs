@@ -12,13 +12,14 @@ try
     builder.Configuration.AddAzureAppConfiguration(options =>
     {
         var appConfigurationUrl = builder.Configuration.GetRequiredValue("AzureAppConfiguration");
+        Console.WriteLine($"Azure App Configuration URL: {appConfigurationUrl}");
         options.Connect(new Uri(appConfigurationUrl), azureCredential)
             .UseFeatureFlags();
     });
 }
 catch (Exception ex)
 {
-    throw new Exception("Failed to configure the Whack-A-Mole Realtime service, Azure App Configuration failed", ex);
+    throw new Exception("Failed to configure the Whack-A-Mole Proxy service, Azure App Configuration failed", ex);
 }
 
 builder.Services.AddHealthChecks();

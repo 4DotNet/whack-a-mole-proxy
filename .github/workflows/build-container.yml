@@ -61,7 +61,7 @@ jobs:
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/$IMAGE_NAME:latest
 
   publish-bicep:
-    if: (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
           path: infrastructure/*.json
 
   test-depoloyment:
-    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
+    if: (github.event_name == 'pull_request' && github.event.action != 'closed')
     needs: [build, publish-bicep, versionize]
     runs-on: ubuntu-latest
     steps:
