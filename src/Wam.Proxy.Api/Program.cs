@@ -4,7 +4,6 @@ using Wam.Core.Identity;
 using Wam.Proxy;
 using Yarp.ReverseProxy.Configuration;
 
-var corsPolicyName = "DefaultCors";
 var builder = WebApplication.CreateBuilder(args);
 
 var azureCredential = CloudIdentity.GetCloudIdentity();
